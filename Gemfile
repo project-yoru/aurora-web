@@ -53,3 +53,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'haml-rails'
 
 gem 'sass-rails'
+
+# TODO switch to rubygems after this issue being resolved: https://github.com/plataformatec/devise/issues/3736
+gem 'devise', github: 'plataformatec/devise'
+gem 'omniauth'
+gem 'omniauth-github'
