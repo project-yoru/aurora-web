@@ -8,7 +8,7 @@ class User < ApplicationRecord
     # :validatable
     :omniauthable, :omniauth_providers => [:github]
 
-  has_many :oauth_accesses
+  has_many :oauth_accesses, dependent: :destroy
 
   def self.find_by_oauth provider, uid
     OauthAccess.find_by(provider: provider, uid: uid)
