@@ -1,4 +1,7 @@
-# = require jquery
+# = require jquery2
 # = require jquery_ujs
 # = require turbolinks
-# = require_tree .
+# = require materialize
+
+# $ ->
+#   # init materialize

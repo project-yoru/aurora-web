@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160128120120) do
     t.string   "access_token"
     t.datetime "expires_at"
     t.string   "refresh_token"
+    t.string   "user_name"
     t.string   "profile_url"
     t.string   "profile_name"
     t.string   "avatar_url"

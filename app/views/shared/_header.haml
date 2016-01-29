@@ -1,0 +1,27 @@
+%header.navbar-fixed
+  %nav
+    .nav-wrapper
+      / TODO
+      %a.brand-logo.center Logo
+      %ul.hide-on-med-and-down
+        %li
+          - if user_signed_in?
+            %a projects
+          %a docs
+      %ul.right.hide-on-med-and-down
+        - if user_signed_in?
+          %li
+            %a.dropdown-button{ href: '#!', data: { activates: 'dropdown-navbar-account' } }
+              = user_display_name current_user
+              %i.material-icons.right arrow_drop_down
+            %ul#dropdown-navbar-account.dropdown-content
+              %li
+                %a.grey-text{href: '#'} Account
+              %li.divider
+              %li
+                = link_to 'Sign out', destroy_user_session_path, method: :delete
+        - else
+          %li
+            = link_to omniauth_authorize_path(:user, :github) do
+              Sign in with
+              %i.right.material-icons.fa.fa-github

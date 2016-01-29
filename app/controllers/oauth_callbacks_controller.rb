@@ -37,11 +37,12 @@ class OauthCallbacksController < Devise::OmniauthCallbacksController
       end
     end
 
-    # TODO flash
     if user_signed_in?
-      # from dashbaord
-      redirect_to dashboard_path(anchor: 'user-info')
+      # TODO flash
+      # means binding another oauth access
+      # redirect_to setting_path
     else
+      # TODO flash
       sign_in_and_redirect user, event: :authentication
     end
   end
@@ -53,6 +54,7 @@ class OauthCallbacksController < Devise::OmniauthCallbacksController
         provider: data['provider'],
         uid: data['uid'],
         access_token: data['credentials']['token'],
+        user_name: data['info']['nickname'],
         profile_url: data['info']['urls']['GitHub'],
         profile_name: data['info']['name'],
         avatar_url: data['extra']['raw_info']['avatar_url']

@@ -58,3 +58,7 @@ gem 'sass-rails'
 gem 'devise', github: 'plataformatec/devise'
 gem 'omniauth'
 gem 'omniauth-github'
+
+gem 'materialize-sass'
+gem 'material_icons'
+gem 'font-awesome-rails'
