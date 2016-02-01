@@ -1,0 +1,11 @@
+v0.1
+- core coder
+  - input: git repo, some cson/scripts
+  - output: /dist
+-deployment
+
+v0.2
+- basic docs
+
+LATER
+- materialize form label active class <-conflict-> turbolinks (i guess)

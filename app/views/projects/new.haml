@@ -1,0 +1,56 @@
+.projects-new.block-container.page-container
+  .container
+    .row
+      .col.s12.m6.offset-m3
+        .new-project.card
+          = form_for @project do |f|
+            .card-content
+              %span.card-title New project
+              .name.input.row
+                %span.row-title.col.s12
+                  name
+                .input-field.col.s12
+                  = f.text_field :name, placeholder: 'Test app'
+
+              .github-repo-path.input.row
+                %span.row-title.col.s12
+                  Source
+                .input-field.col.s5
+                  = text_field_tag 'github_repo_name_prefix', 'github.com/', disabled: true
+                .input-field.col.s7
+                  = f.text_field :github_repo_path, placeholder: 'some-user/some-repo'
+                %p.hint.grey-text.col.s12
+                  %i.material-icons.md-18 info
+                  / TODO copy writing
+                  Currently we only support github repo that your github account could access. We will support custom git address in the not-too-distant future.
+
+              .platforms.input.row
+                %span.row-title.col.s12
+                  Platforms
+                .input-field.col.s12
+                  = f.check_box :platforms
+                  = f.label :platforms_web_online, class: 'for-checkbox' do
+                    / TODO proper icon
+                    %i.material-icons web
+                    Web Online
+                .input-field.col.s12
+                  = check_box_tag :project_platforms_web_offline
+                  = f.label :platforms_web_offline, class: 'for-checkbox' do
+                    / TODO proper icon
+                    %i.material-icons web
+                    Web Offline
+                .input-field.col.s12
+                  = check_box_tag :project_platforms_android
+                  = f.label :platforms_android, class: 'for-checkbox' do
+                    / TODO proper icon
+                    %i.material-icons android
+                    Android
+                .input-field.col.s12
+                  = check_box_tag :project_platforms_ios
+                  = f.label :platforms_ios, class: 'for-checkbox' do
+                    / TODO proper icon
+                    %i.material-icons phone
+                    iOS
+
+            .card-action.center
+              = f.submit 'Create', class: 'btn'

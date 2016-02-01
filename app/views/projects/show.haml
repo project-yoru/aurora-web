@@ -1,0 +1,12 @@
+.projects-show.block-container.page-container
+  .container
+    .row
+      .col.s12.m6.offset-m3
+        .project.card
+          .card-content
+            %span.name.card-title= @project.name
+            %p.source.grey-text
+              = @project.github_repo_path
+          .card-action.center
+            / TODO edit project
+            / TODO delete/archive project

@@ -1,0 +1,16 @@
+.projects-index.block-container.page-container
+  .container
+    .row
+      .col.s12.m6.offset-m3
+        - @projects.each do |p|
+          = link_to project_path(p), target: '_blank' do
+            .project.card.black-text
+              .card-content
+                %span.card-title= p.name
+                %br
+                %time.update-at.grey-text
+                  Updated at:
+                  = l p.updated_at, format: :long
+
+    .new-project.section.center
+      %a.btn{href: new_project_path} Create new project

@@ -39,8 +39,8 @@ class OauthCallbacksController < Devise::OmniauthCallbacksController
 
     if user_signed_in?
       # TODO flash
-      # means binding another oauth access
-      # redirect_to setting_path
+      # TODO means binding another oauth access, should redirect to sth like setting_path
+      sign_in_and_redirect user, event: :authentication
     else
       # TODO flash
       sign_in_and_redirect user, event: :authentication

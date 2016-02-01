@@ -2,12 +2,13 @@
   %nav
     .nav-wrapper
       / TODO
-      %a.brand-logo.center Logo
+      %a.brand-logo.center Aurora
       %ul.hide-on-med-and-down
         %li
           - if user_signed_in?
-            %a projects
-          %a docs
+            = link_to 'Projects', projects_path
+        %li
+          = link_to 'Docs', '#'
       %ul.right.hide-on-med-and-down
         - if user_signed_in?
           %li

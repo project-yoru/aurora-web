@@ -1,0 +1,13 @@
+.sessions-new.block-container.page-container
+  .container
+    .row
+      .col.s12.m6.offset-m3
+        .card
+          .card-content
+            %span.card-title Sign in
+            %p
+              For user-experience and focus-on-core-function reason, currently we only support signing in with your github account.
+          .card-action
+            = link_to omniauth_authorize_path(:user, :github) do
+              Sign in with
+              %i.material-icon.fa.fa-github
