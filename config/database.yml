@@ -81,6 +81,6 @@ test:
 
 production:
   <<: *default
-  database: aurora_production
-  username: aurora
-  password: <%= ENV['AURORA_DATABASE_PASSWORD'] %>
+  database: aurora_web
+  username: aurora_web
+  password: <%= Rails.application.secrets[:database][:password] %>
