@@ -11,11 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129100838) do
+ActiveRecord::Schema.define(version: 20160307084327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "distributions", force: :cascade do |t|
+    t.integer  "project_id"
+    t.string   "platform",                           null: false
+    t.string   "state",      default: "initialized", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "distributions", ["project_id"], name: "index_distributions_on_project_id", using: :btree
 
   create_table "oauth_accesses", force: :cascade do |t|
     t.string   "provider"
@@ -30,9 +40,10 @@ ActiveRecord::Schema.define(version: 20160129100838) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "user_id"
-    t.index ["provider", "uid"], name: "index_oauth_accesses_on_provider_and_uid", unique: true, using: :btree
-    t.index ["user_id"], name: "index_oauth_accesses_on_user_id", using: :btree
   end
+
+  add_index "oauth_accesses", ["provider", "uid"], name: "index_oauth_accesses_on_provider_and_uid", unique: true, using: :btree
+  add_index "oauth_accesses", ["user_id"], name: "index_oauth_accesses_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.integer  "user_id"
@@ -42,8 +53,9 @@ ActiveRecord::Schema.define(version: 20160129100838) do
     t.string   "platforms",                     array: true
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
   end
+
+  add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
@@ -55,9 +67,11 @@ ActiveRecord::Schema.define(version: 20160129100838) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+
+  add_foreign_key "distributions", "projects"
   add_foreign_key "oauth_accesses", "users"
   add_foreign_key "projects", "users"
 end
