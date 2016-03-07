@@ -17,9 +17,7 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-# Use Puma as the app server
-# gem 'puma'
+# gem 'jbuilder', '~> 2.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -50,6 +48,7 @@ group :development do
   gem 'capistrano', '~> 3.4'
   gem 'capistrano-rvm'
   gem 'capistrano-rails'
+  gem 'capistrano3-puma'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -67,3 +66,7 @@ gem 'omniauth-github'
 gem 'materialize-sass'
 gem 'material_icons'
 gem 'font-awesome-rails'
+
+group :production do
+  gem 'puma'
+end
