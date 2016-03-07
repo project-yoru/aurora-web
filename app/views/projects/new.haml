@@ -28,29 +28,11 @@
                 %span.row-title.col.s12
                   Platforms
                 .input-field.col.s12
-                  = f.check_box :platforms
+                  = f.check_box :platforms, checked: true, disabled: true
                   = f.label :platforms_web_online, class: 'for-checkbox' do
                     / TODO proper icon
                     %i.material-icons web
                     Web Online
-                .input-field.col.s12
-                  = check_box_tag :project_platforms_web_offline
-                  = f.label :platforms_web_offline, class: 'for-checkbox' do
-                    / TODO proper icon
-                    %i.material-icons web
-                    Web Offline
-                .input-field.col.s12
-                  = check_box_tag :project_platforms_android
-                  = f.label :platforms_android, class: 'for-checkbox' do
-                    / TODO proper icon
-                    %i.material-icons android
-                    Android
-                .input-field.col.s12
-                  = check_box_tag :project_platforms_ios
-                  = f.label :platforms_ios, class: 'for-checkbox' do
-                    / TODO proper icon
-                    %i.material-icons phone
-                    iOS
 
             .card-action.center
               = f.submit 'Create', class: 'btn'
