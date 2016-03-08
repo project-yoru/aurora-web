@@ -77,8 +77,10 @@ end
 # gem 'state_machines-activerecord'
 gem 'aasm'
 
+gem 'redis'
+
 gem 'sidekiq'
+# TODO update to sinatra 2.0 after this issue being resolved: https://github.com/sinatra/sinatra/pull/1090
+# gem 'sinatra'
 
 # TODO cap-sidekiq
-
-gem 'redis'

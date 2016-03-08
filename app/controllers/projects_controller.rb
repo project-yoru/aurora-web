@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :set_extra_params, only: [:create]
+  before_action :authenticate_user!
+  before_action :set_extra_params, only: [:create]
 
   def show
     @project = current_user.projects.find params[:id]

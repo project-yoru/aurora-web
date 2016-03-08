@@ -8,8 +8,17 @@ class Distribution < ApplicationRecord
     state :pending
     state :building
 
-    event :start, before: :save_in_queue do
+    event :start do
+      before do
+        # save in BuildingQueue
+        BuildingQueue.push self
+      end
+
       transitions from: :initialized, to: :pending
+
+      after do
+        BuildingQueue.pop_and_build if BuildingQueue.size == 1
+      end
     end
 
     event :build, before: :send_building_request do
@@ -17,12 +26,8 @@ class Distribution < ApplicationRecord
     end
   end
 
-  def save_in_queue
-    BuildingQueue.push self
-  end
-
   def send_building_request
-    DistributionsJobs::SendBuildingRequestJob.perform_later self
+    DistributionsJobs::SendBuildRequestJob.perform_later self
   end
 
 end

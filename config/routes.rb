@@ -4,6 +4,14 @@ Rails.application.routes.draw do
   # Serve websocket cable requests in-process
   # mount ActionCable.server => '/cable'
 
+  # sidekiq monitor
+  # TODO enable this after this issue being resolved: https://github.com/sinatra/sinatra/pull/1090
+
+  # require 'sidekiq/web'
+  # authenticate :user, lambda { |u| u.email == 'namiheike@gmail.com' } do
+  #   mount Sidekiq::Web => '/sidekiq'
+  # end
+
   # users
   devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks' }, skip: [:passwords, :sessions, :registrations]
   devise_scope :user do

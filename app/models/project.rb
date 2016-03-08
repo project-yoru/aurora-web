@@ -2,12 +2,14 @@ class Project < ActiveRecord::Base
   belongs_to :user
   has_many :distributions, dependent: :destroy
 
+  # TODO validate github_repo_path
+
   after_create :create_distributions
 
   def create_distributions
     platforms.each do |p|
       d = distributions.create platform: p
-      d.start
+      d.start!
     end
   end
 
