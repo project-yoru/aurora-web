@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :set_extra_params, only: [:create]
 
   def show
     @project = current_user.projects.find params[:id]
@@ -25,17 +26,22 @@ class ProjectsController < ApplicationController
 
   private
 
-  def project_params
-    # TODO handle platforms
+  def set_extra_params
+    # set platforms
+    # TODO support more platforms
+    params.require(:project)[:platforms] = ['web_online']
 
-    # set default params
+    # set source_type
     params.require(:project)[:source_type] = 'github'
+  end
 
+  def project_params
     # permit params
     params.require(:project).permit(
       :name,
       :source_type,
-      :github_repo_path
+      :github_repo_path,
+      :platforms => []
     )
   end
 

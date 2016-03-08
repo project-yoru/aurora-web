@@ -70,3 +70,8 @@ gem 'font-awesome-rails'
 group :production do
   gem 'puma'
 end
+
+# gem 'state_machines'
+# gem 'state_machines-activemodel'
+# gem 'state_machines-activerecord'
+gem 'aasm'

@@ -12,6 +12,7 @@ GIT
 GEM
   remote: https://ruby.taobao.org/
   specs:
+    aasm (4.9.0)
     actioncable (5.0.0.beta3)
       actionpack (= 5.0.0.beta3)
       nio4r (~> 1.2)
@@ -232,6 +233,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   awesome_print
   better_errors
   binding_of_caller
