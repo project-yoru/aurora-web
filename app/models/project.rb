@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
   belongs_to :user
-  has_many :distributions
+  has_many :distributions, dependent: :destroy
 
   after_create :create_distributions
 
