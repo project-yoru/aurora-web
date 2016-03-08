@@ -49,6 +49,7 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano3-puma'
+  gem 'capistrano-sidekiq'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -75,3 +76,9 @@ end
 # gem 'state_machines-activemodel'
 # gem 'state_machines-activerecord'
 gem 'aasm'
+
+gem 'sidekiq'
+
+# TODO cap-sidekiq
+
+gem 'redis'
