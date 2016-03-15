@@ -255,6 +255,7 @@ DEPENDENCIES
   capistrano3-puma
   coffee-rails (~> 4.1.0)
   devise!
+  faraday
   font-awesome-rails
   haml-rails
   jquery-rails

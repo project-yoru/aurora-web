@@ -19,7 +19,11 @@ Rails.application.routes.draw do
     delete '/destroy' => 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  resources :projects, only: [:show, :index, :new, :create]
+  resources :projects, only: [:show, :index, :new, :create] do
+    resources :distributions, shallow: true do
+      post 'notify', on: :member
+    end
+  end
 
   resources :pages, only: [:show], params: :name
 

@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
   def create_distributions
     platforms.each do |p|
       d = distributions.create platform: p
-      d.start!
+      d.pend!
     end
   end
 
