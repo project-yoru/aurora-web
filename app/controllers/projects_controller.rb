@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = current_user.projects
+    @projects = current_user.projects.order created_at: :desc
   end
 
   def new
@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
   def set_extra_params
     # set platforms
     # TODO support more platforms
-    params.require(:project)[:platforms] = ['web_online']
+    params.require(:project)[:platforms] = ['web']
 
     # set source_type
     params.require(:project)[:source_type] = 'github'

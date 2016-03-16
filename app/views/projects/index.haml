@@ -9,8 +9,8 @@
                 %span.card-title= p.name
                 %br
                 %time.update-at.grey-text
-                  Updated at:
-                  = l p.updated_at, format: :long
+                  Created at:
+                  = l p.created_at, format: :long
 
     .new-project.section.center
       %a.btn{href: new_project_path} Create new project

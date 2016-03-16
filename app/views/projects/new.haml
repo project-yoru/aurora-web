@@ -29,10 +29,10 @@
                   Platforms
                 .input-field.col.s12
                   = f.check_box :platforms, checked: true, disabled: true
-                  = f.label :platforms_web_online, class: 'for-checkbox' do
+                  = f.label :platforms_web, class: 'for-checkbox' do
                     / TODO proper icon
                     %i.material-icons web
-                    Web Online
+                    Web
 
             .card-action.center
               = f.submit 'Create', class: 'btn'

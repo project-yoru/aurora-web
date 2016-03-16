@@ -1,12 +1,37 @@
 .projects-show.block-container.page-container
   .container
     .row
-      .col.s12.m6.offset-m3
+      .col.s12.m10.offset-m1
         .project.card
           .card-content
-            %span.name.card-title= @project.name
-            %p.source.grey-text
-              = @project.github_repo_path
-          .card-action.center
+            .row
+              .col.s12
+                %span.name.card-title= @project.name
+            .row
+              .col.s7
+                .row
+                  .col.s4.right-align
+                    %span.grey-text source
+                  .col.s8.left-align
+                    / TODO github repo link and url
+                    %span= @project.github_repo_path
+              .col.s5
+                %ul.collection
+                  - @project.distributions.each do |d|
+                    %li.collection-item.avatar
+                      %i.material-icons.circle computer
+                      / TODO platform humanize
+                      %span.title= d.platform
+                      .info-entry
+                        %span.right-align.grey-text state
+                        %span= d.state
+                      .info-entry
+                        %span.right-align.grey-text updated_at
+                        %span= l d.updated_at, format: :short
+                      - if d.state == 'successful'
+                        / TODO set download filename
+                        = link_to 'Download', d.uploaded_archive_url
+          .card-action
+            %a.grey-text.text-lighten-2{href: '#'} Delete
             / TODO edit project
             / TODO delete/archive project

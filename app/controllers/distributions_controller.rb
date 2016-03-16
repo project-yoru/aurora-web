@@ -27,6 +27,6 @@ class DistributionsController < ApplicationController
       throw 'Unknown event_type'
     end
 
-    render nothing: true
+    head :ok
   end
 end
