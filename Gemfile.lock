@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/Angelmmiguel/material_icons.git
-  revision: fe30f58d34cda8decd4abc5b47cd889c76387741
-  specs:
-    material_icons (2.0.1)
-      railties (>= 3.2)
-
-GIT
   remote: git://github.com/plataformatec/devise.git
   revision: 342304375946ca11608516eae80f78dbaae059d5
   specs:
@@ -136,6 +129,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    material_icons (2.0.1)
+      railties (>= 3.2)
     materialize-sass (0.97.5)
       sass (~> 3.3)
     method_source (0.8.2)
@@ -268,7 +263,7 @@ DEPENDENCIES
   font-awesome-rails
   haml-rails
   jquery-rails
-  material_icons!
+  material_icons
   materialize-sass
   omniauth
   omniauth-github
