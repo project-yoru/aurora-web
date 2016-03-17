@@ -1,1 +1,2 @@
 # = require shared/base
+# = require_tree ./static_pages

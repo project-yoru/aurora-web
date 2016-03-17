@@ -1,0 +1,11 @@
+-# TODO sticky footer
+-# http://materializecss.com/footer.html
+
+/ render the footer inside the page in landing_page due to fullpage.js limitation
+- return if controller_name == 'pages' and action_name == 'show' and params[:name] == 'landing_page'
+
+%footer.page-footer
+  .container
+  .footer-copyright
+    .container
+      Workshop Aurora, by Project Yoru.

@@ -84,3 +84,7 @@ gem 'sidekiq'
 # gem 'sinatra'
 
 gem 'faraday'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-fullpage.js'
+end

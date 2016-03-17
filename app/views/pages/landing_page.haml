@@ -1,1 +1,119 @@
-landing_page.haml
+.page.container.landing-page{data: {aurora_web_module: 'landing-page'}}
+  .fullpage-section.title
+    %h1.center-align
+      Aurora
+    %p.subtitle.flow-text.center-align
+      Aurora is a workshop that helps you create cross-platform visual novels.
+  .fullpage-section.concept
+    %h5.title.center-align
+      Concept
+    .row.valign-wrapper
+      .col.s4.contents-detail
+        .card-panel.amber.lighten-2
+          %span.flow-text Story scripts
+          %p Lines, narration, branches, voice, etc.
+        .card-panel.lime.lighten-1
+          %span.flow-text Resources
+          %p Avatars, tachies, backgrounds, videos, music, etc.
+        .card-panel.blue.lighten-4
+          %span.flow-text Config
+          %p Configure & Customize
+      .col.s1.brace.center-align
+        = image_tag 'static_pages/landing_page/right_brace.png', class: 'valign'
+      .col.s3.git-repo
+        .card-panel.grey.lighten-2
+          %span.flow-text
+            a
+            %i.fa.fa-git
+            repo
+          %p | - /story
+          %p | - /resources
+          %p | - /config
+      .col.s1.brace.center-align
+        %i.material-icons.r90.md-light.md-48.grey-text keyboard_capslock
+      .col.s3.distributions
+        %ul.collection
+          %li.collection-item.avatar
+            %i.material-icons.circle.green.darken-3.white-text cloud
+            %span Online
+            %p.light Host & embed everywhere
+          %li.collection-item.avatar
+            %i.material-icons.circle.indigo.darken-3.white-text smartphone
+            %span Mobile App
+            %p.light Supporting iOS, Android, WP
+          %li.collection-item.avatar
+            %i.material-icons.circle.red.darken-3.white-text laptop
+            %span Desktop App
+            %p.light Supporting Windows, OS X, Linux
+
+  .fullpage-section.features
+    %h5.title.center-align
+      Features
+    .row
+      .col.s4.center-align
+        %i.material-icons.md-48.green-text done_all
+        %p.flow-text Open and powerful
+        %p.center-align.light
+          \- Create a full-feature visual novel for free.
+      .col.s4.center-align
+        %i.material-icons.md-48.red-text build
+        %p.flow-text Developer friendly
+        %p.center-align.light
+          \- Git based. Create, share, and cooperate in your most familiar way.
+      .col.s4.center-align
+        %i.material-icons.md-48.lime-text format_paint
+        %p.flow-text Writer friendly
+        %p.center-align.light
+          \- Write your story script in a special, efficient format we developed.
+    .row
+      .col.s4.center-align
+        %i.material-icons.md-48.cyan-text settings_input_component
+        %p.flow-text Web based
+        %p.light
+          \- Easily supporting multi-platform.
+        %p.light
+          \- Easily extend and customize, taking advantage of the latest tech like web component.
+      .col.s4.center-align
+        %i.material-icons.md-48.grey-text schedule
+        %p.flow-text Next major release
+        %p.light
+          \- Voice dub sync.
+        %p.light
+          \- Live2D integration.
+      .col.s4.center-align
+        / TODO bubble_chart
+        %i.material-icons.md-48.grey-text blur_on
+        %p.flow-text We dream big
+        %p.light
+          \- Community, tachies generating, publishing, assets store. The project is updating everyday.
+
+  .fullpage-section.showcase
+    %h5.title.center-align
+      Showcase
+
+  .fullpage-section.footer
+    .row
+      .col.s5.right-align
+        %span Blog
+    .row
+      .col.s5.right-align
+        %span Guide
+    .row
+      .col.s5.right-align
+        %span Docs
+    .row
+      .col.s5.right-align
+        %span Showcases
+    .row
+      .col.s5.right-align
+        %span Sponsers
+    .row
+      .col.s5.right-align
+        %span Source
+      .col.s7
+        %a{href: 'http://github.com/project-yoru', target: '_blank'} github.com/project-yoru
+    .row
+      .col.s5.right-align
+        %span Created by
+      .col.s7
+        %iframe{src: 'https://ghbtns.com/github-btn.html?user=nanowang&type=follow&count=true', frameborder: '0', scrolling: '0', width: '170px', height: '20px'}
