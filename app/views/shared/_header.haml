@@ -2,7 +2,8 @@
   %nav
     .nav-wrapper
       / TODO
-      %a.brand-logo.center Aurora
+      %a.brand-logo.center
+        = image_tag 'aurora_logo.svg', size: '48x48', style: 'margin-top: 10px'
       %ul.hide-on-med-and-down
         %li
           - if user_signed_in?
