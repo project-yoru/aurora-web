@@ -1,6 +1,6 @@
 .page.container.landing-page{data: {aurora_web_module: 'landing-page'}}
   .fullpage-section.title.center-align
-    = image_tag 'aurora_logo_with_brand.png'
+    = image_tag 'aurora_logo_with_brand.png', width: '256'
     %p.subtitle.flow-text
       Aurora is a workshop that helps you create full-feature, cross-platform visual novels.
   .fullpage-section.concept
@@ -53,7 +53,7 @@
         %i.material-icons.md-48.green-text done_all
         %p.flow-text Open and powerful
         %p.center-align.light
-          \- Create a full-feature visual novel for free.
+          \- Create a full-feature playable visual novel for free.
       .col.s4.center-align
         %i.material-icons.md-48.red-text build
         %p.flow-text Developer friendly
@@ -86,9 +86,16 @@
         %p.light
           \- Community, tachies generating, publishing, assets store. The project is updating everyday.
 
-  .fullpage-section.showcase
+  .fullpage-section.first-step
     %h5.title.center-align
-      Showcase
+      First step
+    .row
+      .col.s12.center-align
+        %a{href: 'http://www.github.com/project-yoru/aurora-demo-app'} demo app source repo
+
+  .fullpage-section.showcases
+    %h5.title.center-align
+      Showcases
 
   .fullpage-section.footer
     .row
