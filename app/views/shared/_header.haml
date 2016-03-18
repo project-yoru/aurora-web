@@ -1,13 +1,16 @@
 %header.navbar-fixed
   %nav
     .nav-wrapper
-      / TODO
       %a.brand-logo.center
         = image_tag 'aurora_logo.svg', size: '48x48', style: 'margin-top: 10px'
       %ul.hide-on-med-and-down
         %li
           - if user_signed_in?
-            = link_to 'Projects', projects_path
+            = link_to 'My Projects', projects_path
+        %li
+          = link_to 'Explore', '#'
+        %li
+          = link_to 'Guides', '#'
         %li
           = link_to 'Docs', '#'
       %ul.right.hide-on-med-and-down
