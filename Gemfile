@@ -88,3 +88,5 @@ gem 'faraday'
 source 'https://rails-assets.org' do
   gem 'rails-assets-fullpage.js'
 end
+
+gem 'bugsnag'
