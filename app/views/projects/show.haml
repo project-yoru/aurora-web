@@ -25,8 +25,12 @@
                       .info-entry
                         %span.right-align.grey-text state
                         %span= d.state
+                      - if d.state == 'building'
+                        .info-entry
+                          %span.right-align.grey-text last message
+                          %span= d.progress_message
                       .info-entry
-                        %span.right-align.grey-text updated_at
+                        %span.right-align.grey-text last updated at
                         %span= l d.updated_at, format: :short
                       - if d.state == 'successful'
                         / TODO set download filename

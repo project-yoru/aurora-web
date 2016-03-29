@@ -10,21 +10,24 @@ class DistributionsController < ApplicationController
 
     case params[:event_type]
     when 'building_progress'
-      case params[:message][:progress]
-      when 'started_pulling', 'started_building', 'started_uploading'
-        @distribution.send :"#{params[:message][:progress]}!" if @distribution.send :"may_#{params[:message][:progress]}?"
-      when 'succeeded'
-        @distribution.succeeded if @distribution.may_succeeded?
-        @distribution.uploaded_archive_url = params[:message][:uploaded_archive_url]
-        @distribution.save!
-      when 'failure_occured'
-        @distribution.failure_occured! if @distribution.may_failure_occured?
-        # TODO get and save error message
+      case params[:event_message][:progress]
+      when 'start_building'
+        @distribution.start_building if @distribution.may_start_building?
+      when 'succeed'
+        @distribution.succeed if @distribution.may_succeed?
+        @distribution.uploaded_archive_url = params[:event_message][:uploaded_archive_url]
+      when 'error_occur'
+        @distribution.error_occur
+        @distribution.progress_message = params[:event_message][:progress_message]
+      when 'minor_update'
+        # not a major state progress
+        @distribution.progress_message = params[:event_message][:progress_message]
       else
-        throw 'Unknown building_progress'
+        raise 'Unknown progress type'
       end
+      @distribution.save!
     else
-      throw 'Unknown event_type'
+      raise 'Unknown event_type'
     end
 
     head :ok

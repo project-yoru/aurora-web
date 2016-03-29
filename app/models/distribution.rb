@@ -3,14 +3,13 @@ class Distribution < ApplicationRecord
 
   belongs_to :project
 
+  # TODO simplify the state machine, use message instead of state
   aasm column: :state do
     # state and event for error handling
 
     state :initialized, initial: true
     state :pending
-    state :pulling
     state :building
-    state :uploading
     state :successful
     state :failed
 
@@ -18,24 +17,16 @@ class Distribution < ApplicationRecord
       transitions from: :initialized, to: :pending
     end
 
-    event :started_pulling do
-      transitions from: :pending, to: :pulling
+    event :start_building do
+      transitions from: :pending, to: :building
     end
 
-    event :started_building do
-      transitions from: [:pending, :pulling], to: :building
+    event :succeed do
+      transitions from: [:building], to: :successful
     end
 
-    event :started_uploading do
-      transitions from: [:pending, :pulling, :building], to: :uploading
-    end
-
-    event :succeeded do
-      transitions from: [:pending, :pulling, :building, :uploading ], to: :successful
-    end
-
-    event :failure_occured do
-      transitions from: [:pending, :pulling, :building, :uploading ], to: :failed
+    event :error_occur do
+      transitions from: [:pending, :building], to: :failed
     end
 
   end
