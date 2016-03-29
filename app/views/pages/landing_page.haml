@@ -3,6 +3,13 @@
     = image_tag 'aurora_logo_with_brand.png', width: '256'
     %p.subtitle.flow-text
       Aurora is a workshop that helps you create full-feature, cross-platform visual novels.
+
+  .fullpage-section.intro
+    %h5.title.center-align
+      Intro
+    .center-align
+      %iframe{src: (URI::HTTP.build host: request.host, port: request.port, path: '/intro_keynote')}
+
   .fullpage-section.concept
     %h5.title.center-align
       Concept
