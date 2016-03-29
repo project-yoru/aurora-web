@@ -25,7 +25,7 @@
                       .info-entry
                         %span.right-align.grey-text state
                         %span= d.state
-                      - if d.state == 'building'
+                      - if %w(building failed).include? d.state
                         .info-entry
                           %span.right-align.grey-text last message
                           %span= d.progress_message
