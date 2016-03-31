@@ -1,4 +1,4 @@
-class DistributionsJobs::SendBuildRequestJob < ApplicationJob
+class DistributionsJobs::CreateBuildingJobJob < ApplicationJob
   queue_as :default
 
   def perform distribution
@@ -25,5 +25,10 @@ class DistributionsJobs::SendBuildRequestJob < ApplicationJob
     end
 
     logger.info "response: #{response.body}"
+    if response.status == 201
+      distribution.current_building_job_id = ( JSON.parse response.body )['job_id']
+    else
+      raise 'Building Job created failed.'
+    end
   end
 end
