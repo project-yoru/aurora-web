@@ -31,5 +31,8 @@ Rails.application.routes.draw do
 
   resources :pages, only: [:show], params: :name
 
+  # api
+  mount API::Base => '/api'
+
   root to: 'pages#show', name: 'landing_page'
 end

@@ -14,7 +14,7 @@ class Distribution < ApplicationRecord
     state :failed
     state :halted
 
-    event :pend, after: :create_building_job do
+    event :pend, after: :pend_building_job_in_queue do
       transitions from: %i(initialized failed halted), to: :pending
     end
 
@@ -45,15 +45,17 @@ class Distribution < ApplicationRecord
 
   private
 
-  def create_building_job
+  def pend_building_job_in_queue
     stop_current_building_job
-    DistributionsJobs::CreateBuildingJobJob.perform_later self
+    $build_queue.push self
   end
 
   def stop_current_building_job
-    return unless got_job_id = current_building_job_id
+    unless $build_queue.remove! self
+      # TODO halt running job on remote
+      # create halt_building_queue like build_queue
+    end
     current_building_job_id = nil
-    DistributionsJobs::StopBuildingJobJob.perform_later got_job_id
   end
 
 end

@@ -78,7 +78,9 @@ end
 gem 'aasm'
 
 gem 'redis'
-gem 'redis-namespace'
+group :development do
+  gem 'redis-namespace'
+end
 
 gem 'sidekiq'
 # TODO update to sinatra 2.0 after this issue being resolved: https://github.com/sinatra/sinatra/pull/1090
@@ -91,3 +93,6 @@ source 'https://rails-assets.org' do
 end
 
 gem 'bugsnag'
+
+# api
+gem 'grape'
