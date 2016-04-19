@@ -1,8 +1,9 @@
-class BuildQueue
-	SET_NAME = 'aurora_web_build_queue'
+class JobsQueue
+	SET_PREFIX = 'aurora_web_build_queue_'
 
-	def initialize redis
+	def initialize redis, name
 		@redis = redis
+    @name = SET_PREFIX + name.to_s
 	end
 
 	def push distribution

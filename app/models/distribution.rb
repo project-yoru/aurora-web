@@ -47,11 +47,11 @@ class Distribution < ApplicationRecord
 
   def pend_building_job_in_queue
     stop_current_building_job
-    $build_queue.push self
+    $jobs_queues[:to_build].push self
   end
 
   def stop_current_building_job
-    unless $build_queue.remove! self
+    unless $jobs_queues[:to_build].remove! self
       # TODO halt running job on remote
       # create halt_building_queue like build_queue
     end
