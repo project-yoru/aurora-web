@@ -7,47 +7,53 @@ class JobsQueue
 	end
 
 	def push distribution
-		@redis.zadd @name, Time.now.to_i, build_job(distribution)
+    @redis.zadd @name, Time.now.to_i, ( job = build_new_job distribution ).to_json
+    return job[:id]
 	end
 
 	def pop
-    if poped_job = @redis.zrange(@name, 0, 0).first
-      parsed_job = parse_job JSON.parse(poped_job)
-      remove_job! poped_job
-      @redis.zrem @name, poped_job
-      return parsed_job
-    else
-      nil
-    end
+    return nil unless popped_job = @redis.zrange(@name, 0, 0).first
+    parsed_popped_job = parse_popping_job JSON.parse(popped_job)
+    @redis.zrem @name, popped_job
+    return parsed_popped_job
 	end
 
   def remove! distribution
-    remove_job! build_job distribution
-  end
-
-	def remove_job! job
     # return true if found and removed
-		@redis.zrem(@name, job) == 1
-	end
+    @redis.zrem @name, ( build_existing_job distribution ).to_json
+  end
 
   def size
     @redis.zcard @name
   end
 
-  private
-
-  def build_job distribution
-    {
-      distribution: {
-        gid: distribution.to_global_id.to_s
-      }
-    }.to_json
+  def clear!
+    @redis.del @name
   end
 
-  def parse_job job_hash
-    job_hash.deep_symbolize_keys!
-    job_hash[:distribution] = GlobalID::Locator.locate job_hash[:distribution][:gid]
-    job_hash
+  private
+
+  def build_new_job distribution
+    {
+      id: SecureRandom.uuid,
+      distribution_id: distribution.id
+    }
+  end
+
+  def build_existing_job distribution
+    {
+      id: distribution.current_building_job_id,
+      distribution_id: distribution.id
+    }
+  end
+
+  def parse_popping_job popped_job
+    distribution = Distribution.find popped_job['distribution_id']
+    {
+      id: popped_job['id'],
+      project: distribution.project.as_json(only: [:id, :name, :source_type, :github_repo_path]),
+      distribution: distribution.as_json(only: [:id, :platform])
+    }.deep_symbolize_keys
   end
 
 end
