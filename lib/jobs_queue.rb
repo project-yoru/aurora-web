@@ -1,5 +1,5 @@
 class JobsQueue
-	SET_PREFIX = 'aurora_web_build_queue_'
+	SET_PREFIX = 'aurora_web_jobs_queue_'
 
 	def initialize redis, name
 		@redis = redis
@@ -7,13 +7,13 @@ class JobsQueue
 	end
 
 	def push distribution
-		@redis.zadd @name, Time.now.to_i, distribution.to_global_id
+		@redis.zadd @name, Time.now.to_i, build_job(distribution)
 	end
 
 	def pop
-    if first_distribution_gid = @redis.zrange(@name, 0, 0).first
-      @redis.zrem @name, first_distribution_gid
-      GlobalID::Locator.locate first_distribution_gid
+    if first_job_hash = @redis.zrange(@name, 0, 0).first
+      @redis.zrem @name, first_job_hash
+      parse_job first_job_hash
     else
       nil
     end
@@ -24,5 +24,21 @@ class JobsQueue
 		distribution_global_id = distribution.to_global_id
 		@redis.zrem(@name, distribution_global_id) == 1
 	end
+
+  private
+
+  def build_job distribution
+    {
+      distribution: {
+        gid: distribution.to_global_id
+      }
+    }
+  end
+
+  def parse_job job_hash
+    job_hash.symbolize_keys!
+    job_hash[:distribution] = GlobalID::Locator.locate job_hash[:distribution][:gid]
+    job_hash
+  end
 
 end
