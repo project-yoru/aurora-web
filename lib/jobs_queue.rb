@@ -32,7 +32,7 @@ class JobsQueue
       distribution: {
         gid: distribution.to_global_id
       }
-    }
+    }.to_json
   end
 
   def parse_job job_hash
