@@ -45,7 +45,7 @@ class JobsQueue
   end
 
   def parse_job job_hash
-    job_hash.symbolize_keys!
+    job_hash.deep_symbolize_keys!
     job_hash[:distribution] = GlobalID::Locator.locate job_hash[:distribution][:gid]
     job_hash
   end
