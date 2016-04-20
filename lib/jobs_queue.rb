@@ -26,12 +26,16 @@ class JobsQueue
 		@redis.zrem(@name, distribution_global_id) == 1
 	end
 
+  def size
+    @redis.zcard @name
+  end
+
   private
 
   def build_job distribution
     {
       distribution: {
-        gid: distribution.to_global_id
+        gid: distribution.to_global_id.go_s
       }
     }.to_json
   end
