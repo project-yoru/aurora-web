@@ -27,8 +27,7 @@ class JobsQueue
 
 	def remove_job! job
     # return true if found and removed
-		distribution_global_id = distribution.to_global_id.to_s
-		@redis.zrem(@name, distribution_global_id) == 1
+		@redis.zrem(@name, job) == 1
 	end
 
   def size
