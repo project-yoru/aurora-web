@@ -13,6 +13,7 @@ class JobsQueue
 	def pop
     if poped_job = @redis.zrange(@name, 0, 0).first
       parsed_job = parse_job JSON.parse(poped_job)
+      remove_job! poped_job
       @redis.zrem @name, poped_job
       return parsed_job
     else
@@ -20,9 +21,13 @@ class JobsQueue
     end
 	end
 
-	def remove! distribution
+  def remove! distribution
+    remove_job! build_job distribution
+  end
+
+	def remove_job! job
     # return true if found and removed
-		distribution_global_id = distribution.to_global_id
+		distribution_global_id = distribution.to_global_id.to_s
 		@redis.zrem(@name, distribution_global_id) == 1
 	end
 
@@ -35,7 +40,7 @@ class JobsQueue
   def build_job distribution
     {
       distribution: {
-        gid: distribution.to_global_id.go_s
+        gid: distribution.to_global_id.to_s
       }
     }.to_json
   end
