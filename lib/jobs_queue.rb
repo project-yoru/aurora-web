@@ -11,9 +11,10 @@ class JobsQueue
 	end
 
 	def pop
-    if first_job_hash = @redis.zrange(@name, 0, 0).first
-      @redis.zrem @name, first_job_hash
-      parse_job first_job_hash
+    if poped_job = @redis.zrange(@name, 0, 0).first
+      parsed_job = parse_job JSON.parse(poped_job)
+      @redis.zrem @name, poped_job
+      return parsed_job
     else
       nil
     end
