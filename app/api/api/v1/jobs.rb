@@ -7,7 +7,7 @@ module API
       resource :jobs do
         desc 'pop first distribution from the build queue'
         delete 'to_build/pop' do
-          $jobs_queues[:to_build].pop
+          $jobs_queues[:to_build].pop || {}
         end
       end
     end
