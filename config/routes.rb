@@ -22,9 +22,8 @@ Rails.application.routes.draw do
   resources :projects, only: [:show, :index, :new, :create] do
     resources :distributions, shallow: true do
       member do
-        patch 'notify'
-        patch 'halt'
         patch 'start_building'
+        patch 'halt'
       end
     end
   end

@@ -47,7 +47,7 @@ class Distribution < ApplicationRecord
 
   def pend_building_job_in_queue
     stop_current_building_job
-    current_build_job_id = $jobs_queues[:to_build].push self
+    self.current_building_job_id = $jobs_queues[:to_build].push self
   end
 
   def stop_current_building_job
