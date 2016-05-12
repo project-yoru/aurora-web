@@ -51,7 +51,7 @@ class JobsQueue
     distribution = Distribution.find popped_job['distribution_id']
     {
       id: popped_job['id'],
-      project: distribution.project.as_json(only: [:id, :name, :source_type, :github_repo_path]),
+      project: distribution.project.as_json(only: [:id, :name, :git_repo_path]),
       distribution: distribution.as_json(only: [:id, :platform])
     }.deep_symbolize_keys
   end

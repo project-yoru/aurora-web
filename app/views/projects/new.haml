@@ -5,28 +5,22 @@
         .new-project.card
           = form_for @project do |f|
             .card-content
-              %span.card-title New project
+              %p.card-title New project
               .name.input.row
-                %span.row-title.col.s12
-                  name
                 .input-field.col.s12
+                  = f.label :name
                   = f.text_field :name, placeholder: 'Test app'
-
-              .github-repo-path.input.row
-                %span.row-title.col.s12
-                  Source
-                .input-field.col.s5
-                  = text_field_tag 'github_repo_name_prefix', 'github.com/', disabled: true
-                .input-field.col.s7
-                  = f.text_field :github_repo_path, placeholder: 'some-user/some-repo'
+              .git-repo-path.input.row
+                .input-field.col.s12
+                  = f.label :git_repo_path
+                  = f.text_field :git_repo_path, placeholder: 'https://github.com/some-user/some-repo'
                 %p.hint.grey-text.col.s12
                   %i.material-icons.md-18 info
                   / TODO copy writing
-                  Currently we only support public repos on Github that your github account could access. We will support other sources in the not-too-distant future.
-
+                  Currently we only support public repos. We will support private repos in the not-too-distant future.
               .platforms.input.row
-                %span.row-title.col.s12
-                  Platforms
+                .input-field.col.s12
+                  = f.label :platforms, class: 'active'
                 .input-field.col.s12
                   = f.check_box :platforms, checked: true, disabled: true
                   = f.label :platforms_web, class: 'for-checkbox' do

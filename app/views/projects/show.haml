@@ -8,7 +8,7 @@
               .col.s12
                 %span.name.card-title= @project.name
             .row
-              .col.s7
+              .col.s12
                 .row
                   .col.s4.right-align
                     %span.grey-text
@@ -16,7 +16,7 @@
                       source
                   .col.s8.left-align
                     / TODO github repo link and url
-                    %span= @project.github_repo_path
+                    %span= @project.git_repo_path
           - @project.distributions.each_with_index do |d, index|
             .distribution-section.card-action
               - if index == 0

@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
   belongs_to :user
   has_many :distributions, dependent: :destroy
 
-  # TODO validate github_repo_path
+  # TODO validate git_repo_path
 
   after_create :create_distributions
 

@@ -30,17 +30,13 @@ class ProjectsController < ApplicationController
     # set platforms
     # TODO support more platforms
     params.require(:project)[:platforms] = ['web']
-
-    # set source_type
-    params.require(:project)[:source_type] = 'github'
   end
 
   def project_params
     # permit params
     params.require(:project).permit(
       :name,
-      :source_type,
-      :github_repo_path,
+      :git_repo_path,
       :platforms => []
     )
   end
