@@ -19,6 +19,8 @@ module API
           requires :message, type: Hash
         end
         patch ":id/progress" do
+          # TODO only accept notification with newer timestamp
+
           distribution = Distribution.find params[:job][:distribution][:id]
 
           # ignore norification from expired job
