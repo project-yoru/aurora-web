@@ -17,43 +17,43 @@
                   .col.s8.left-align
                     / TODO github repo link and url
                     %span= @project.git_repo_path
-          - @project.distributions.each_with_index do |d, index|
-            .distribution-section.card-action
-              - if index == 0
-                %p.card-title distributions
-              .row
-                .col.s2.platform-icon.right-align
-                  / TODO icon based on platform
-                  %i.material-icons.md-48= distribution_platform_icon_name d
-                .col.s10
-                  .row.info-entry
-                    %span.col.s4.right-align.grey-text platform
-                    %span.col.s8= d.platform
-                  .row.info-entry
-                    %span.col.s4.right-align.grey-text state
-                    %span.col.s8= d.state
-                  - if %w(building failed).include? d.state
+          .distribution-sections
+            - @project.distributions.order(:platform).each_with_index do |d, index|
+              .distribution-section.card-action
+                - if index == 0
+                  %p.card-title distributions
+                .row
+                  .col.s2.platform-icon.right-align
+                    / TODO icon based on platform
+                    %i.material-icons.md-48= distribution_platform_icon_name d.platform
+                  .col.s10
                     .row.info-entry
-                      %span.col.s4.right-align.grey-text last message
-                      %span.col.s8= d.progress_message
-                  .row.info-entry
-                    %span.col.s4.right-align.grey-text last updated at
-                    %span.col.s8= l d.updated_at, format: :short
-              .action-btns.right-align
-                - if d.may_halt?
-                  = link_to halt_distribution_path(d), method: :patch, class: 'btn-flat' do
-                    %i.material-icons cancel
-                    halt
-                - elsif d.may_pend?
-                  = link_to start_building_distribution_path(d), method: :patch, class: 'btn-flat' do
-                    %i.material-icons autorenew
-                    start building
-                - if d.state == 'successful'
-                  / TODO set download filename
-                  = link_to distribution_archive_download_url(d), class: 'btn-flat', target: '_blank' do
-                    %i.material-icons file_download
-                    download
-          .card-action
+                      %span.col.s4.right-align.grey-text platform
+                      %span.col.s8= d.platform
+                    .row.info-entry
+                      %span.col.s4.right-align.grey-text state
+                      %span.col.s8= d.state
+                    - if %w(building failed).include? d.state
+                      .row.info-entry
+                        %span.col.s4.right-align.grey-text last message
+                        %span.col.s8= d.progress_message
+                    .row.info-entry
+                      %span.col.s4.right-align.grey-text last updated at
+                      %span.col.s8= l d.updated_at, format: :short
+                .action-btns.right-align
+                  - if d.may_halt?
+                    = link_to halt_distribution_path(d), method: :patch, class: 'btn-flat' do
+                      %i.material-icons cancel
+                      halt
+                  - elsif d.may_pend?
+                    = link_to start_building_distribution_path(d), method: :patch, class: 'btn-flat' do
+                      %i.material-icons autorenew
+                      start building
+                  - if d.state == 'successful'
+                    = link_to distribution_archive_download_url(d), class: 'btn-flat', target: '_blank' do
+                      %i.material-icons file_download
+                      download
+          .project-actions.card-action
             %a.btn-flat.red-text(disabled){href: '#'}
               %i.material-icons delete
               delete

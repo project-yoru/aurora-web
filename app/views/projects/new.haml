@@ -21,12 +21,12 @@
               .platforms.input.row
                 .input-field.col.s12
                   = f.label :platforms, class: 'active'
-                .input-field.col.s12
-                  = f.check_box :platforms, checked: true, disabled: true
-                  = f.label :platforms_web, class: 'for-checkbox' do
-                    / TODO proper icon
-                    %i.material-icons web
-                    Web
+                  = f.collection_check_boxes :platforms, Distribution::SUPPORTED_PLATFORMS, :to_s, :capitalize do |check_box|
+                    .input-field.col.s12
+                      = check_box.check_box
+                      = check_box.label( class: 'for-checkbox' ) do
+                        %i.material-icons= distribution_platform_icon_name check_box.value
+                        = check_box.text
 
             .card-action.center
               = f.submit 'Create', class: 'btn'

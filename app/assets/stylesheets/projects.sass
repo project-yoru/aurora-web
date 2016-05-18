@@ -16,7 +16,12 @@
 
 .projects-show.block-container
   .project.card
-    .distribution-section
-      padding-top: 0
-      .row.info-entry, .row.actions
-        margin-bottom: 0
+    .distribution-sections
+      .distribution-section
+        &:first-child
+          p.card-title
+            margin-top: 0
+          padding-top: 20px
+        padding-top: 4em
+        .row.info-entry, .row.actions
+          margin-bottom: 0
