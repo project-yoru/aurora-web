@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_extra_params, only: [:create]
+  before_action :filter_invalid_platforms, only: [:create]
 
   def show
     @project = current_user.projects.find params[:id]
@@ -26,10 +26,12 @@ class ProjectsController < ApplicationController
 
   private
 
-  def set_extra_params
-    # set platforms
-    # TODO support more platforms
-    params.require(:project)[:platforms] = ['web']
+  def filter_invalid_platforms
+    # collection_check_boxes will generate an empty item,
+    # so the received params are like ['', 'web', 'android']
+    # see also https://github.com/rails/rails/issues/12605
+
+    params.require(:project)[:platforms].select!(&:present?)
   end
 
   def project_params

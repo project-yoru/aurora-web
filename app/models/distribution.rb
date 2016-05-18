@@ -1,7 +1,11 @@
 class Distribution < ApplicationRecord
   include AASM
 
+  SUPPORTED_PLATFORMS = %w( web android )
+
   belongs_to :project
+
+  validates :platform, inclusion: { in: SUPPORTED_PLATFORMS }
 
   # TODO simplify the state machine, use message instead of state
   aasm column: :state do
