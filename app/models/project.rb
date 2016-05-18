@@ -3,6 +3,7 @@ class Project < ActiveRecord::Base
   has_many :distributions, dependent: :destroy
 
   # TODO validate git_repo_path
+  # https://stackoverflow.com/questions/7167895/whats-a-good-way-to-validate-links-urls-in-rails
 
   after_create :create_distributions
 
