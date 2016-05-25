@@ -9,14 +9,21 @@
                 %span.name.card-title= @project.name
             .row
               .col.s12
+                / source
                 .row
                   .col.s4.right-align
                     %span.grey-text
-                      %i.fa.fa-github
                       source
                   .col.s8.left-align
                     / TODO github repo link and url
                     %span= @project.git_repo_path
+                / author
+                .row
+                  .col.s4.right-align
+                    %span.grey-text
+                      author
+                  .col.s8.left-align
+                    %span= @project.config.dig('meta', 'author', 'name')
           .distribution-sections
             - @project.distributions.order(:platform).each_with_index do |d, index|
               .distribution-section.card-action

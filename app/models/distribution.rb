@@ -1,3 +1,5 @@
+# TODO make [project_id, platform] a index
+
 class Distribution < ApplicationRecord
   include AASM
 
@@ -7,7 +9,6 @@ class Distribution < ApplicationRecord
 
   validates :platform, inclusion: { in: SUPPORTED_PLATFORMS }
 
-  # TODO simplify the state machine, use message instead of state
   aasm column: :state do
     # state and event for error handling
 
@@ -51,7 +52,7 @@ class Distribution < ApplicationRecord
 
   def pend_building_job_in_queue
     stop_current_building_job
-    self.current_building_job_id = $jobs_queues[:to_build].push self
+    self.current_building_job_id = $jobs_queues[:to_build].push type: :build, distribution: self
   end
 
   def stop_current_building_job

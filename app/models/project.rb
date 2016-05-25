@@ -3,9 +3,9 @@ class Project < ActiveRecord::Base
   has_many :distributions, dependent: :destroy
 
   # TODO validate git_repo_path
-  # https://stackoverflow.com/questions/7167895/whats-a-good-way-to-validate-links-urls-in-rails
 
   after_create :create_distributions
+  after_create :fetch_config
 
   def create_distributions
     platforms.each do |p|
@@ -14,9 +14,7 @@ class Project < ActiveRecord::Base
     end
   end
 
-  def distrubution platform
-    # TODO make [project_id, platform] a index
-    distributions.where(platform: platform).first
+  def fetch_config
+    $jobs_queues[:to_build].push type: :config, project: self
   end
-
 end

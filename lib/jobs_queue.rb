@@ -6,9 +6,19 @@ class JobsQueue
     @name = SET_PREFIX + name.to_s
 	end
 
-	def push distribution
-    @redis.zadd @name, Time.now.to_i, ( job = build_new_job distribution ).to_json
-    return job[:id]
+	def push( type:, distribution: nil, project: nil )
+		# type:
+		# - :config, with a project
+		# - :build, with a distribution
+
+		case type
+		when :config
+			@redis.zadd @name, Time.now.to_i, ( job = build_new_config_job project ).to_json
+		when :build
+  		@redis.zadd @name, Time.now.to_i, ( job = build_new_build_job distribution ).to_json
+		end
+
+  	return job[:id]
 	end
 
 	def pop
@@ -20,7 +30,7 @@ class JobsQueue
 
   def remove! distribution
     # return true if found and removed
-    @redis.zrem @name, ( build_existing_job distribution ).to_json
+    @redis.zrem @name, ( build_existing_build_job distribution ).to_json
   end
 
   def size
@@ -33,27 +43,48 @@ class JobsQueue
 
   private
 
-  def build_new_job distribution
+	def build_new_config_job project
     {
       id: SecureRandom.uuid,
+			type: :config,
+      project_id: project.id
+    }
+  end
+
+  def build_new_build_job distribution
+    {
+      id: SecureRandom.uuid,
+			type: :build,
       distribution_id: distribution.id
     }
   end
 
-  def build_existing_job distribution
+  def build_existing_build_job distribution
     {
       id: distribution.current_building_job_id,
+			type: :build,
       distribution_id: distribution.id
     }
   end
 
   def parse_popping_job popped_job
-    distribution = Distribution.find popped_job['distribution_id']
-    {
-      id: popped_job['id'],
-      project: distribution.project.as_json(only: [:id, :name, :git_repo_path]),
-      distribution: distribution.as_json(only: [:id, :platform])
-    }.deep_symbolize_keys
+		case popped_job['type']
+		when 'config'
+			project = Project.find popped_job['project_id']
+			return {
+				id: popped_job['id'],
+				type: :config,
+	      project: project.as_json(only: [:id, :name, :git_repo_path])
+			}.deep_symbolize_keys
+		when 'build'
+			distribution = Distribution.find popped_job['distribution_id']
+	    return {
+	      id: popped_job['id'],
+				type: :build,
+	      project: distribution.project.as_json(only: [:id, :name, :git_repo_path]),
+	      distribution: distribution.as_json(only: [:id, :platform])
+	    }.deep_symbolize_keys
+		end
   end
 
 end

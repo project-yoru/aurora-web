@@ -96,3 +96,5 @@ gem 'bugsnag'
 
 # api
 gem 'grape'
+
+# gem 'addressable'
