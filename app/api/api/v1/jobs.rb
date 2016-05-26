@@ -35,7 +35,7 @@ module API
             status :ok
             return
           when 'build'
-            distribution = Distribution.find! params[:job][:distribution][:id]
+            distribution = Distribution.find params[:job][:distribution][:id]
 
             # ignore norification from expired job
             unless distribution.current_building_job_id == params[:job][:id]
