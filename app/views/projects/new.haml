@@ -23,7 +23,11 @@
                   = f.label :platforms, class: 'active'
                   = f.collection_check_boxes :platforms, Distribution::SUPPORTED_PLATFORMS, :to_s, :capitalize do |check_box|
                     .input-field.col.s12
-                      = check_box.check_box
+                      / pre-check the `web` one
+                      - if check_box.value == 'web'
+                        = check_box.check_box checked: true, disabled: true
+                      - else
+                        = check_box.check_box
                       = check_box.label( class: 'for-checkbox' ) do
                         %i.material-icons= distribution_platform_icon_name check_box.value
                         = check_box.text

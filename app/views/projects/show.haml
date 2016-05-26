@@ -21,7 +21,7 @@
                   %span.col.s8= @project.config.dig('meta', 'author', 'name')
 
           .distribution-sections
-            - @project.distributions.order(:platform).each_with_index do |d, index|
+            - @distributions.each_with_index do |d, index|
               .distribution-section.card-action
                 - if index == 0
                   %p.section-title.flow-text distributions

@@ -1,9 +1,14 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   before_action :filter_invalid_platforms, only: [:create]
+  before_action :concat_necessary_platforms, only: [:create]
 
   def show
     @project = current_user.projects.find params[:id]
+
+    # modify the order of the distributions, make sure the `web` one is the first
+    @distributions = [ web_distribution = @project.distributions.with_platform('web') ]
+    @project.distributions.where.not(platform: 'web').each{ |d| @distributions << d }
   end
 
   def index
@@ -27,11 +32,24 @@ class ProjectsController < ApplicationController
   private
 
   def filter_invalid_platforms
-    # collection_check_boxes will generate an empty item,
+    # `collection_check_boxes` will generate an empty item,
     # so the received params are like ['', 'web', 'android']
+    # that's the desirable result, so have to filter manually
     # see also https://github.com/rails/rails/issues/12605
 
     params.require(:project)[:platforms].select!(&:present?)
+  end
+
+  def concat_necessary_platforms
+    # the checkbox for `web` platform is disabled to be readonly,
+    # thus the value wont appear in request params,
+    # have to concat it manually
+
+    necessary_platform = 'web'
+
+    unless params.require(:project)[:platforms].include? necessary_platform
+      params.require(:project)[:platforms] << necessary_platform
+    end
   end
 
   def project_params

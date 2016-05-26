@@ -9,6 +9,8 @@ class Distribution < ApplicationRecord
 
   validates :platform, inclusion: { in: SUPPORTED_PLATFORMS }
 
+  scope :with_platform, ->(platform) { where(platform: platform).first }
+
   aasm column: :state do
     # state and event for error handling
 
