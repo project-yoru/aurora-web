@@ -3,35 +3,30 @@
     .row
       .col.s12.m10.offset-m1
         .project.card
-          .card-content
+          .project-section.card-content
+            %p.section-title.flow-text= @project.name
             .row
-              .col.s12
-                %span.name.card-title= @project.name
-            .row
-              .col.s12
+              .icon.col.s2.right-align
+                = image_tag 'projects/default_app_icon.png'
+              .col.s10
                 / source
-                .row
-                  .col.s4.right-align
-                    %span.grey-text
-                      source
-                  .col.s8.left-align
+                .info-entry.row
+                  %span.col.s4.right-align.grey-text source
+                  %span.col.s8
                     / TODO github repo link and url
-                    %span= @project.git_repo_path
+                    = @project.git_repo_path
                 / author
-                .row
-                  .col.s4.right-align
-                    %span.grey-text
-                      author
-                  .col.s8.left-align
-                    %span= @project.config.dig('meta', 'author', 'name')
+                .info-entry.row
+                  %span.col.s4.right-align.grey-text author
+                  %span.col.s8= @project.config.dig('meta', 'author', 'name')
+
           .distribution-sections
             - @project.distributions.order(:platform).each_with_index do |d, index|
               .distribution-section.card-action
                 - if index == 0
-                  %p.card-title distributions
+                  %p.section-title.flow-text distributions
                 .row
-                  .col.s2.platform-icon.right-align
-                    / TODO icon based on platform
+                  .icon.col.s2.right-align
                     %i.material-icons.md-48= distribution_platform_icon_name d.platform
                   .col.s10
                     .row.info-entry
@@ -61,7 +56,7 @@
                       %i.material-icons file_download
                       download
           .project-actions.card-action
-            %a.btn-flat.red-text.disabled{href: '#'}
+            %a.btn-flat.grey-text.disabled{href: '#'}
               %i.material-icons delete
               delete
             / TODO edit project
