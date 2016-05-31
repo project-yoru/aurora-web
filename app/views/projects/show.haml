@@ -20,6 +20,32 @@
                   %span.col.s4.right-align.grey-text author
                   %span.col.s8= @project.config.dig('meta', 'author', 'name')
 
+          / online preview
+          .online-preview-section.card-action
+            %p.section-title.flow-text online preview
+            .row
+              .icon.col.s2.right-align
+                %i.material-icons.md-48 tab
+              .col.s10
+                .row.info-entry
+                  %span.col.s4.right-align.grey-text platform
+                  %span.col.s8 web (online)
+                .row.info-entry
+                  %span.col.s4.right-align.grey-text state
+                  %span.col.s8= @online_preview.state
+                - if %w(building failed).include? @online_preview.state
+                  .row.info-entry
+                    %span.col.s4.right-align.grey-text progress message
+                    %span.col.s8= @online_preview.progress_message
+                .row.info-entry
+                  %span.col.s4.right-align.grey-text last updated at
+                  %span.col.s8= l @online_preview.updated_at, format: :short
+            .action-btns.right-align
+              - if @online_preview.state == 'successful'
+                = link_to @online_preview.url, class: 'btn-flat', target: '_blank' do
+                  %i.material-icons open_in_new
+                  open
+
           .distribution-sections
             - @distributions.each_with_index do |d, index|
               .distribution-section.card-action
@@ -37,7 +63,7 @@
                       %span.col.s8= d.state
                     - if %w(building failed).include? d.state
                       .row.info-entry
-                        %span.col.s4.right-align.grey-text last message
+                        %span.col.s4.right-align.grey-text progress message
                         %span.col.s8= d.progress_message
                     .row.info-entry
                       %span.col.s4.right-align.grey-text last updated at

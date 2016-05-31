@@ -5,10 +5,12 @@ class ProjectsController < ApplicationController
 
   def show
     @project = current_user.projects.find params[:id]
+    @online_preview = @project.online_preview
+    @distributions = @project.distributions
 
     # modify the order of the distributions, make sure the `web` one is the first
-    @distributions = [ web_distribution = @project.distributions.with_platform('web') ]
-    @project.distributions.where.not(platform: 'web').each{ |d| @distributions << d }
+    # @distributions = [ web_distribution = @project.distributions.with_platform('web') ]
+    # @project.distributions.where.not(platform: 'web').each{ |d| @distributions << d }
   end
 
   def index

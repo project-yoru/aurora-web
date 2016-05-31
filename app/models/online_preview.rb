@@ -1,15 +1,9 @@
-# TODO make [project_id, platform] a index
+# TODO got no stop current and redo mechanism
 
-class Distribution < ApplicationRecord
+class OnlinePreview < ApplicationRecord
   include AASM
 
-  SUPPORTED_PLATFORMS = %w( web android )
-
   belongs_to :project
-
-  validates :platform, inclusion: { in: SUPPORTED_PLATFORMS }
-
-  scope :with_platform, ->(platform) { where(platform: platform).first }
 
   aasm column: :state do
     state :initialized, initial: true
@@ -40,27 +34,29 @@ class Distribution < ApplicationRecord
     end
   end
 
+  # TODO make related methods a module
   def current_building_job_id
-    $redis.get "distribution_#{id}_current_building_job_id"
+    $redis.get "online_preview_#{id}_current_building_job_id"
   end
 
   def current_building_job_id= job_id
-    $redis.set "distribution_#{id}_current_building_job_id", job_id
+    $redis.set "online_preview_#{id}_current_building_job_id", job_id
   end
 
   private
 
   def pend_building_job_in_queue
     stop_current_building_job
-    self.current_building_job_id = $jobs_queues[:to_build].push type: :build, distribution: self
+    self.current_building_job_id = $jobs_queues[:to_build].push type: :build_online_preview, online_preview: self
   end
 
   def stop_current_building_job
-    unless $jobs_queues[:to_build].remove! self
-      # TODO halt running job on remote
-      # create halt_building_queue like build_queue
-    end
-    current_building_job_id = nil
+    # TODO
+    # unless $jobs_queues[:to_build].remove! self
+    #   # TODO halt running job on remote
+    #   # create halt_building_queue like build_queue
+    # end
+    # current_building_job_id = nil
   end
 
 end

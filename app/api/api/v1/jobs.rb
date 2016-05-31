@@ -34,6 +34,31 @@ module API
 
             status :ok
             return
+          when 'build_online_preview'
+            online_preview = OnlinePreview.find params[:job][:online_preview][:id]
+
+            # TODO ignore norification from expired job
+
+            case params[:event_name]
+            when 'start_building'
+              online_preview.start_building if online_preview.may_start_building?
+            when 'succeed'
+              online_preview.succeed if online_preview.may_succeed?
+              online_preview.url = params[:message][:uploaded_url]
+            when 'error_occur'
+              online_preview.error_occur
+              online_preview.progress_message = params[:message][:progress_message]
+            when 'minor_update'
+              # not a major state progress
+              online_preview.progress_message = params[:message][:progress_message]
+            else
+              raise 'Unknown event'
+            end
+
+            online_preview.save!
+
+            status :ok
+            return
           when 'build'
             distribution = Distribution.find params[:job][:distribution][:id]
 

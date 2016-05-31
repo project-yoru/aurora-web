@@ -11,11 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160526105004) do
+ActiveRecord::Schema.define(version: 20160531053607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "pgcrypto"
+  enable_extension "uuid-ossp"
 
   create_table "distributions", force: :cascade do |t|
     t.integer  "project_id"
@@ -46,6 +48,17 @@ ActiveRecord::Schema.define(version: 20160526105004) do
 
   add_index "oauth_accesses", ["provider", "uid"], name: "index_oauth_accesses_on_provider_and_uid", unique: true, using: :btree
   add_index "oauth_accesses", ["user_id"], name: "index_oauth_accesses_on_user_id", using: :btree
+
+  create_table "online_previews", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.integer  "project_id"
+    t.string   "state",            default: "initialized"
+    t.string   "progress_message"
+    t.string   "url"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "online_previews", ["project_id"], name: "index_online_previews_on_project_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.integer  "user_id"
