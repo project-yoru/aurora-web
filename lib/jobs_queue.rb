@@ -6,7 +6,7 @@ class JobsQueue
     @name = SET_PREFIX + name.to_s
   end
 
-  def push type:, project: nil, online_preview: nil, distribution: nil
+  def push type:, project: nil, distribution: nil
     # type:
     # - :config, with a project
     # - :build, with a distribution
@@ -14,8 +14,6 @@ class JobsQueue
     case type
     when :config
       @redis.zadd @name, Time.now.to_i, ( job = build_new_job :config, project: project ).to_json
-    when :build_online_preview
-      @redis.zadd @name, Time.now.to_i, ( job = build_new_job :build_online_preview, online_preview: online_preview ).to_json
     when :build
       @redis.zadd @name, Time.now.to_i, ( job = build_new_job :build, distribution: distribution ).to_json
     end
@@ -45,19 +43,13 @@ class JobsQueue
 
   private
 
-  def build_new_job type, project: nil, online_preview: nil, distribution: nil
+  def build_new_job type, project: nil, distribution: nil
     case type
     when :config
       {
         id: SecureRandom.uuid,
         type: :config,
         project_id: project.id
-      }
-    when :build_online_preview
-      {
-        id: SecureRandom.uuid,
-        type: :build_online_preview,
-        online_preview_id: online_preview.id
       }
     when :build
       {
@@ -84,14 +76,6 @@ class JobsQueue
         id: popped_job['id'],
         type: :config,
         project: project.as_json(only: [:id, :name, :git_repo_path])
-      }.deep_symbolize_keys
-    when 'build_online_preview'
-      online_preview = OnlinePreview.find popped_job['online_preview_id']
-      return {
-        id: popped_job['id'],
-        type: :build_online_preview,
-        project: online_preview.project.as_json(only: [:id, :name, :git_repo_path]),
-        online_preview: online_preview.as_json(only: [:id])
       }.deep_symbolize_keys
     when 'build'
       distribution = Distribution.find popped_job['distribution_id']

@@ -3,7 +3,7 @@
 class Distribution < ApplicationRecord
   include AASM
 
-  SUPPORTED_PLATFORMS = %w( web android )
+  SUPPORTED_PLATFORMS = %w( online_preview web android )
 
   belongs_to :project
 

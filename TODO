@@ -3,3 +3,5 @@
 - optimize speed, cdn for assets, google font for fonts
 
 - project config job, dont like distribution build job, dont have a `halt current and redo` function
+
+- use uuid as identifier

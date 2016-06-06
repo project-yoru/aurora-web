@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531053607) do
+ActiveRecord::Schema.define(version: 20160604072249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,11 +21,11 @@ ActiveRecord::Schema.define(version: 20160531053607) do
 
   create_table "distributions", force: :cascade do |t|
     t.integer  "project_id"
-    t.string   "platform",                                     null: false
-    t.string   "state",                default: "initialized", null: false
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "uploaded_archive_url"
+    t.string   "platform",                                 null: false
+    t.string   "state",            default: "initialized", null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "url"
     t.string   "progress_message"
   end
 
@@ -48,17 +48,6 @@ ActiveRecord::Schema.define(version: 20160531053607) do
 
   add_index "oauth_accesses", ["provider", "uid"], name: "index_oauth_accesses_on_provider_and_uid", unique: true, using: :btree
   add_index "oauth_accesses", ["user_id"], name: "index_oauth_accesses_on_user_id", using: :btree
-
-  create_table "online_previews", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.integer  "project_id"
-    t.string   "state",            default: "initialized"
-    t.string   "progress_message"
-    t.string   "url"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-  end
-
-  add_index "online_previews", ["project_id"], name: "index_online_previews_on_project_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.integer  "user_id"

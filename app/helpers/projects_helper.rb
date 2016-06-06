@@ -1,6 +1,8 @@
 module ProjectsHelper
   def distribution_platform_icon_name platform
     case platform
+    when 'online_preview'
+      'tab'
     when 'web'
       'tab'
     when 'android'
@@ -18,6 +20,6 @@ module ProjectsHelper
               when 'android'
                 'apk'
               end
-    distribution.uploaded_archive_url + "?attname=#{filename}.#{extname}"
+    distribution.url + "?attname=#{filename}.#{extname}"
   end
 end

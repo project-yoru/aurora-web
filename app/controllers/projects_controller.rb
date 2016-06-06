@@ -5,12 +5,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project = current_user.projects.find params[:id]
-    @online_preview = @project.online_preview
-    @distributions = @project.distributions
-
-    # modify the order of the distributions, make sure the `web` one is the first
-    # @distributions = [ web_distribution = @project.distributions.with_platform('web') ]
-    # @project.distributions.where.not(platform: 'web').each{ |d| @distributions << d }
   end
 
   def index
@@ -43,15 +37,16 @@ class ProjectsController < ApplicationController
   end
 
   def concat_necessary_platforms
-    # the checkbox for `web` platform is disabled to be readonly,
+    # the checkbox for `online_preview` & `web` platform is disabled to be readonly,
     # thus the value wont appear in request params,
     # have to concat it manually
 
-    necessary_platform = 'web'
-
-    unless params.require(:project)[:platforms].include? necessary_platform
-      params.require(:project)[:platforms] << necessary_platform
+    Project::NECESSARY_PLATFORMS.each do |p|
+      unless params.require(:project)[:platforms].include? p
+        params.require(:project)[:platforms] << p
+      end
     end
+
   end
 
   def project_params

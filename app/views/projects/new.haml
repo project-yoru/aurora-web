@@ -21,16 +21,16 @@
               .platforms.input.row
                 .input-field.col.s12
                   = f.label :platforms, class: 'active'
-                  = f.collection_check_boxes :platforms, Distribution::SUPPORTED_PLATFORMS, :to_s, :capitalize do |check_box|
+                  = f.collection_check_boxes :platforms, Distribution::SUPPORTED_PLATFORMS, :to_s, :to_s do |check_box|
                     .input-field.col.s12
-                      / pre-check the `web` one
-                      - if check_box.value == 'web'
+                      / pre-check necessary ones
+                      - if Project::NECESSARY_PLATFORMS.include? check_box.value
                         = check_box.check_box checked: true, disabled: true
                       - else
                         = check_box.check_box
                       = check_box.label( class: 'for-checkbox' ) do
                         %i.material-icons= distribution_platform_icon_name check_box.value
-                        = check_box.text
+                        = check_box.text.split('_').join(' ').capitalize
 
             .card-action.center
               = f.submit 'Create', class: 'btn'
