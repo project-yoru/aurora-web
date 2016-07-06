@@ -2,7 +2,7 @@
 source 'https://ruby.taobao.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '>= 5.0.0.beta3', '< 5.1'
+gem 'rails', '~> 5.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Uglifier as compressor for JavaScript assets
@@ -25,7 +25,6 @@ gem 'jquery-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
   gem 'byebug-color-printer'
 
   gem 'better_errors'
@@ -42,7 +41,7 @@ group :development do
   gem 'spring'
 
   # deployment
-  gem 'capistrano', '~> 3.4'
+  gem 'capistrano', '~> 3.5'
   gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano3-puma'
@@ -65,28 +64,26 @@ gem 'materialize-sass'
 gem 'material_icons'
 gem 'font-awesome-rails'
 
-group :production do
-  gem 'puma'
-end
+gem 'puma'
 
 # gem 'state_machines'
 # gem 'state_machines-activemodel'
 # gem 'state_machines-activerecord'
 gem 'aasm'
 
-gem 'redis'
+gem 'redis', '~> 3.0'
 group :development do
   gem 'redis-namespace'
 end
 
 gem 'sidekiq'
-# TODO update to sinatra 2.0 after this issue being resolved: https://github.com/sinatra/sinatra/pull/1090
+# TODO update to sinatra 2.0 for sidekiq web dashboard after this issue being resolved: https://github.com/sinatra/sinatra/pull/1090
 # gem 'sinatra'
 
 gem 'faraday'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-fullpage.js'
+  gem 'rails-assets-fullpage'
 end
 
 gem 'bugsnag'

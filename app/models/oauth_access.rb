@@ -1,3 +1,3 @@
-class OauthAccess < ActiveRecord::Base
+class OauthAccess < ApplicationRecord
   belongs_to :user
 end

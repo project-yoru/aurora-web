@@ -1,4 +1,4 @@
-class Project < ActiveRecord::Base
+class Project < ApplicationRecord
   NECESSARY_PLATFORMS = %w(online_preview web)
 
   belongs_to :user
@@ -13,7 +13,7 @@ class Project < ActiveRecord::Base
   after_create :create_and_pend_distributions
 
   def online_preview
-    distributions.with_platform 'online_preview'
+    distributions.with_platform('online_preview').first
   end
 
   def fetch_config

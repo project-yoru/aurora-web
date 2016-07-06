@@ -9,7 +9,7 @@ class Distribution < ApplicationRecord
 
   validates :platform, inclusion: { in: SUPPORTED_PLATFORMS }
 
-  scope :with_platform, ->(platform) { where(platform: platform).first }
+  scope :with_platform, ->(platform) { where(platform: platform) }
 
   aasm column: :state do
     state :initialized, initial: true

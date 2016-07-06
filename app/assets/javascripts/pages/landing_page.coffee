@@ -1,4 +1,4 @@
-# = require fullpage.js/jquery.fullPage
+# = require fullpage
 
 $ ->
   return if ( container = $ '[data-aurora-web-module="landing-page"]' ).length is 0

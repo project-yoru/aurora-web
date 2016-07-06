@@ -8,4 +8,14 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+
+# static_page layout
 Rails.application.config.assets.precompile += %w( static_page.css static_page.js )
+
+%w( projects ).each do |controller|
+  Rails.application.config.assets.precompile += ["#{controller}/#{controller}.js"]
+end
+
+# action cable & channels
+Rails.application.config.assets.precompile += %w( cable.js )
+Rails.application.config.assets.precompile += %w( channels/project.js )

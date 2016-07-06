@@ -3,9 +3,14 @@
   %head
     / TODO slogan in title
     %title Aurora
+
     = stylesheet_link_tag 'application', media: 'all'
+
     = javascript_include_tag 'application'
+    = javascript_include_tag "#{controller_name}/#{controller_name}"
+
     = csrf_meta_tags
+
   %body
     = render partial: 'shared/header'
     %main

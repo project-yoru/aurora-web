@@ -7,7 +7,13 @@ Rails.application.configure do
   config.cache_classes = false
 
   # Do not eager load code on boot.
-  config.eager_load = false
+  # config.eager_load = false
+
+  # HACK set eager_load to true to avoid some issue with puma and actioncable in dev mode
+  # this PR resolves the issue yet has not been released
+  # https://github.com/rails/rails/pull/25240
+  # TODO
+  config.eager_load = true
 
   # Show full error reports.
   config.consider_all_requests_local = true
@@ -53,4 +59,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # action cable
+  config.action_cable.allowed_request_origins = ['http://127.0.0.1:3000']
 end
